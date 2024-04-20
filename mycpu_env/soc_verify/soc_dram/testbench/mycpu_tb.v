@@ -112,9 +112,16 @@ reg        debug_end;
 reg [31:0] ref_wb_pc;
 reg [4 :0] ref_wb_rf_wnum;
 reg [31:0] ref_wb_rf_wdata;
-
+reg [2:0] count ;
+always @(posedge soc_clk) begin
+    if(!resetn)
+        count <= 0;
+    else if(|debug_wb_rf_we && debug_wb_rf_wnum!=5'd0 && !debug_end && `CONFREG_OPEN_TRACE &&!count)
+        count <= count + 1;
+end
 always @(posedge soc_clk)
 begin 
+
     #1;
     if(|debug_wb_rf_we && debug_wb_rf_wnum!=5'd0 && !debug_end && `CONFREG_OPEN_TRACE && resetn)
     begin
@@ -163,7 +170,7 @@ begin
             $display("--------------------------------------------------------------");
             debug_wb_err <= 1'b1;
             #40;
-//            $finish;
+            $finish;
         end
     end
 end
@@ -219,7 +226,7 @@ begin
     end
 end
 
-//妯℃嫙涓插彛鎵撳�?
+//妯℃嫙涓插彛鎵撳�??
 wire uart_display;
 wire [7:0] uart_data;
 assign uart_display = `CONFREG_UART_DISPLAY;

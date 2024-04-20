@@ -1,26 +1,22 @@
 # compile verilog/system verilog design source files
-verilog xil_defaultlib  --include "../../../../../../rtl/xilinx_ip/clk_pll" --include "../../../../loongson.ip_user_files/ipstatic" \
+verilog xil_defaultlib  --include "../../../../../../rtl/xilinx_ip/clk_pll" \
 "../../../../loongson.gen/sources_1/ip/data_ram/sim/data_ram.v" \
 "../../../../loongson.gen/sources_1/ip/dist_mem_gen_0/sim/dist_mem_gen_0.v" \
 "../../../../../../../../myCPU/alu.v" \
 "../../../../../../testbench/async_ram.v" \
 "../../../../../../rtl/BRIDGE/bridge_1x2.v" \
-"../../../../../../rtl/xilinx_ip/clk_pll/clk_pll.v" \
-"../../../../../../rtl/xilinx_ip/clk_pll/clk_pll_clk_wiz.v" \
 "../../../../../../rtl/CONFREG/confreg.v" \
-"../../../../../../rtl/xilinx_ip/data_ram/sim/data_ram.v" \
-"../../../../../../rtl/xilinx_ip/inst_ram/simulation/dist_mem_gen_v8_0.v" \
+"../../../../../../../../myCPU/mycpu_pipeline.v" \
 "../../../../../../../../myCPU/regfile.v" \
 "../../../../../../rtl/soc_lite_top.v" \
 "../../../../../../../../myCPU/tools.v" \
-"../../../../../../../../myCPU/top.v" \
 
-sv xil_defaultlib  --include "../../../../../../rtl/xilinx_ip/clk_pll" --include "../../../../loongson.ip_user_files/ipstatic" \
+sv xil_defaultlib  --include "../../../../../../rtl/xilinx_ip/clk_pll" \
 "E:/VIVADO/LAB_2/LAB_2.srcs/sources_1/new/Booth.sv" \
 "E:/VIVADO/LAB_2/LAB_2.srcs/sources_1/new/Multi_impro.sv" \
 "E:/VIVADO/LAB_2/LAB_2.srcs/sources_1/new/wallace.sv" \
 
-verilog xil_defaultlib  --include "../../../../../../rtl/xilinx_ip/clk_pll" --include "../../../../loongson.ip_user_files/ipstatic" \
+verilog xil_defaultlib  --include "../../../../../../rtl/xilinx_ip/clk_pll" \
 "../../../../../../testbench/mycpu_tb.v" \
 
 # compile glbl module

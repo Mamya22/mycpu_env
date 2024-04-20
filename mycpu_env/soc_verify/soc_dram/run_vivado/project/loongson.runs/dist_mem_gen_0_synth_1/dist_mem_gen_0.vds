@@ -3,8 +3,8 @@
 # SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
 # IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
 # SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
-# Start of session at: Mon Apr 15 18:32:27 2024
-# Process ID: 25152
+# Start of session at: Sat Apr 20 21:51:42 2024
+# Process ID: 17040
 # Current directory: C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1
 # Command line: vivado.exe -log dist_mem_gen_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source dist_mem_gen_0.tcl
 # Log file: C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1/dist_mem_gen_0.vds
@@ -12,7 +12,7 @@
 # Running On: lenovo, OS: Windows, CPU Frequency: 2688 MHz, CPU Physical cores: 14, Host memory: 34071 MB
 #-----------------------------------------------------------
 source dist_mem_gen_0.tcl -notrace
-create_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 434.270 ; gain = 163.379
+create_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 432.617 ; gain = 162.387
 INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: dist_mem_gen_0
 Command: synth_design -top dist_mem_gen_0 -part xc7a100ticsg324-1L -incremental_mode off -mode out_of_context
 Starting synth_design
@@ -21,9 +21,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100ticsg324-1L
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 30192
+INFO: [Synth 8-7075] Helper process launched with PID 5148
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1275.516 ; gain = 411.332
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1273.121 ; gain = 408.539
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'dist_mem_gen_0' [c:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.gen/sources_1/ip/dist_mem_gen_0/synth/dist_mem_gen_0.vhd:69]
 	Parameter C_FAMILY bound to: artix7 - type: string 
@@ -162,18 +162,18 @@ WARNING: [Synth 8-7129] Port qdpo[1] in module dist_mem_gen_v8_0_13_synth is eit
 WARNING: [Synth 8-7129] Port qdpo[0] in module dist_mem_gen_v8_0_13_synth is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:11:07 ; elapsed = 00:11:13 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished RTL Elaboration : Time (s): cpu = 00:04:16 ; elapsed = 00:04:21 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:11:07 ; elapsed = 00:11:13 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Handling Custom Attributes : Time (s): cpu = 00:04:16 ; elapsed = 00:04:21 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:11:07 ; elapsed = 00:11:13 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:04:16 ; elapsed = 00:04:21 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 4618.332 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2655.324 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -184,31 +184,31 @@ Parsing XDC File [C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dr
 Finished Parsing XDC File [C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4618.332 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2655.324 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.083 . Memory (MB): peak = 4618.332 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.058 . Memory (MB): peak = 2655.324 ; gain = 0.000
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:11:22 ; elapsed = 00:11:29 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Constraint Validation : Time (s): cpu = 00:04:32 ; elapsed = 00:04:38 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100ticsg324-1L
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:11:22 ; elapsed = 00:11:29 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Loading Part and Timing Information : Time (s): cpu = 00:04:32 ; elapsed = 00:04:38 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property KEEP_HIERARCHY = SOFT for U0. (constraint file  C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1/dont_touch.xdc, line 9).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:11:22 ; elapsed = 00:11:29 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:04:32 ; elapsed = 00:04:38 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:11:23 ; elapsed = 00:11:30 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:04:32 ; elapsed = 00:04:38 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -233,7 +233,7 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:11:49 ; elapsed = 00:11:57 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:04:53 ; elapsed = 00:05:00 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -254,13 +254,13 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:12:01 ; elapsed = 00:12:08 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:05:02 ; elapsed = 00:05:08 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:12:09 ; elapsed = 00:12:17 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Timing Optimization : Time (s): cpu = 00:05:08 ; elapsed = 00:05:15 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -280,7 +280,7 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:12:20 ; elapsed = 00:12:28 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Technology Mapping : Time (s): cpu = 00:05:17 ; elapsed = 00:05:24 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -298,37 +298,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:12:28 ; elapsed = 00:12:36 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished IO Insertion : Time (s): cpu = 00:05:24 ; elapsed = 00:05:31 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:12:28 ; elapsed = 00:12:36 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Renaming Generated Instances : Time (s): cpu = 00:05:24 ; elapsed = 00:05:31 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:12:30 ; elapsed = 00:12:37 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:05:26 ; elapsed = 00:05:32 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:12:30 ; elapsed = 00:12:38 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Renaming Generated Ports : Time (s): cpu = 00:05:26 ; elapsed = 00:05:32 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:12:30 ; elapsed = 00:12:38 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Handling Custom Attributes : Time (s): cpu = 00:05:26 ; elapsed = 00:05:33 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:12:30 ; elapsed = 00:12:38 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Renaming Generated Nets : Time (s): cpu = 00:05:26 ; elapsed = 00:05:33 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -352,19 +352,19 @@ Report Cell Usage:
 |6     |FDRE      |    32|
 +------+----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:12:30 ; elapsed = 00:12:38 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Finished Writing Synthesis Report : Time (s): cpu = 00:05:26 ; elapsed = 00:05:33 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 121 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:19 ; elapsed = 00:12:34 . Memory (MB): peak = 4618.332 ; gain = 3754.148
-Synthesis Optimization Complete : Time (s): cpu = 00:12:30 ; elapsed = 00:12:38 . Memory (MB): peak = 4618.332 ; gain = 3754.148
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:07 ; elapsed = 00:05:30 . Memory (MB): peak = 2655.324 ; gain = 1790.742
+Synthesis Optimization Complete : Time (s): cpu = 00:05:26 ; elapsed = 00:05:33 . Memory (MB): peak = 2655.324 ; gain = 1790.742
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.688 . Memory (MB): peak = 4618.332 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.542 . Memory (MB): peak = 2655.324 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 9824 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 8 CPU seconds
+INFO: [Netlist 29-28] Unisim Transformation completed in 7 CPU seconds
 WARNING: [Netlist 29-101] Netlist 'dist_mem_gen_0' is not ideal for floorplanning, since the cellview 'spram' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.106 . Memory (MB): peak = 4618.332 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.071 . Memory (MB): peak = 2655.324 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 8192 instances were transformed.
   RAM256X1S => RAM256X1S (MUXF7(x2), MUXF8, RAMS64E(x4)): 8192 instances
@@ -373,12 +373,12 @@ Synth Design complete | Checksum: 7ad8ad59
 INFO: [Common 17-83] Releasing license: Synthesis
 20 Infos, 102 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:12:59 ; elapsed = 00:13:08 . Memory (MB): peak = 4618.332 ; gain = 4151.852
+synth_design: Time (s): cpu = 00:05:51 ; elapsed = 00:06:01 . Memory (MB): peak = 2655.324 ; gain = 2189.676
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1/dist_mem_gen_0.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 4618.332 ; gain = 0.000
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP dist_mem_gen_0, cache-ID = b81bd6037e8da463
+write_checkpoint: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 2655.324 ; gain = 0.000
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP dist_mem_gen_0, cache-ID = 0f5173a468a80a93
 INFO: [Coretcl 2-1174] Renamed 3 cell refs.
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1/dist_mem_gen_0.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 4618.332 ; gain = 0.000
+write_checkpoint: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 2655.324 ; gain = 0.000
 INFO: [runtcl-4] Executing : report_utilization -file dist_mem_gen_0_utilization_synth.rpt -pb dist_mem_gen_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon Apr 15 18:46:22 2024...
+INFO: [Common 17-206] Exiting Vivado at Sat Apr 20 21:58:25 2024...

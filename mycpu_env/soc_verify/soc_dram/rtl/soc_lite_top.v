@@ -141,7 +141,7 @@ wire [31:0] conf_wdata;
 wire [31:0] conf_rdata;
 
 //cpu
-mycpu_top cpu(
+mycpu_pipeline cpu(
     .clk              (cpu_clk       ),
     .resetn           (cpu_resetn    ),  //low active
 
@@ -161,16 +161,28 @@ mycpu_top cpu(
     .debug_wb_rf_wdata(debug_wb_rf_wdata)
 );
 
+// wire [31:0] cpu_inst_rdata_1;
+// wire [31:0] cpu_inst_rdata_2;
+
 //inst ram
+
 dist_mem_gen_0 inst_ram
 (
     .clk   (cpu_clk            ),   
     .we    (cpu_inst_we        ),   
     .a     (cpu_inst_addr[17:2]),   
     .d     (cpu_inst_wdata     ),   
-    .spo   (cpu_inst_rdata     )   
+    .spo   (cpu_inst_rdata    )   
 );
-
+// inst_ram inst_ram_2
+// (
+//     .clk   (cpu_clk            ),   
+//     .we    (cpu_inst_we        ),   
+//     .a     (cpu_inst_addr[17:2]),   
+//     .d     (cpu_inst_wdata     ),   
+//     .spo   (cpu_inst_rdata_2     )   
+// );
+// assign cpu_data_rdata = cpu_inst_addr[18] ? cpu_inst_rdata_2:cpu_inst_rdata_1;
 bridge_1x2 bridge_1x2(
     .clk             ( cpu_clk         ), // i, 1                 
     .resetn          ( cpu_resetn      ), // i, 1                 

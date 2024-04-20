@@ -28,15 +28,23 @@ always @(posedge clk) begin
         valid <= 1'b1;
     end
 end
+wire [31:0] true_rf_data_1;
+wire [31:0] true_rf_data_2;
+wire bubble;
+wire        br;
+reg [31:0] ID_EX_br_target;
 //////////////////////////////////////////////////////////////////
 // FETCH stage -> DECODE                                       ///
 //////////////////////////////////////////////////////////////////
 wire [31:0] seq_pc;
 wire [31:0] nextpc;
+wire [31:0] inst;
+reg [31:0] pc;
 assign seq_pc = pc + 3'h4;
-reg  [31:0] pc;
+// reg  [31:0] pc;
 
-assign nextpc       = br_taken ? br_target : seq_pc;
+assign nextpc       =   bubble   ? pc        :
+                        br ? ID_EX_br_target : seq_pc;
 
 always @(posedge clk) begin
     if (reset) begin
@@ -46,6 +54,10 @@ always @(posedge clk) begin
         pc <= nextpc;
     end
 end
+assign inst_sram_we    = 1'b0;
+assign inst_sram_addr  = pc;
+assign inst_sram_wdata = 32'b0;
+assign inst            = pc == 32'h1bfffffc ? 32'd0: inst_sram_rdata;
 reg [31:0] IF_ID_pc;
 reg [31:0] IF_ID_inst;
 always @(posedge clk) begin
@@ -54,8 +66,8 @@ always @(posedge clk) begin
         IF_ID_inst <= 32'd0;
     end
     else begin
-        IF_ID_pc <= pc;
-        IF_ID_inst <= inst_sram_rdata;
+        IF_ID_pc <=  bubble ||br ? 32'd0 : pc;
+        IF_ID_inst <=  bubble || br ? 32'd0 : inst;
     end
 end
 
@@ -122,7 +134,7 @@ assign inst_b      = op_31_26_d[6'h14];
 assign inst_bl     = op_31_26_d[6'h15];
 assign inst_beq    = op_31_26_d[6'h16];
 assign inst_bne    = op_31_26_d[6'h17];
-assign inst_lu12i_w= op_31_26_d[6'h05] & ~inst[25];
+assign inst_lu12i_w= op_31_26_d[6'h05] & ~IF_ID_inst[25];
 
 wire        need_ui5;
 wire        need_si12;
@@ -155,13 +167,13 @@ assign i12  = IF_ID_inst[21:10];
 assign i20  = IF_ID_inst[24: 5];
 assign i16  = IF_ID_inst[25:10];
 assign i26  = {IF_ID_inst[ 9: 0], IF_ID_inst[25:10]};
-// 得到立即数
+// 得到立即�?
 wire [31:0] imm;
 assign imm = src2_is_4 ? 32'h4                      :
-             need_si20 ? {i20[19:0], 12'b0}         :
-             need_ui5  ? rk                         :
-            {{20{i12[11]}}, i12[11:0]} ;
-
+            need_si20 ? {i20[19:0], 12'b0}         :
+            // need_ui12 ? {20'd0, i12[11:0]}         :
+            need_ui5  ? {27'd0, rk}                :
+           {{20{i12[11]}}, i12[11:0]} ;
 wire   src2_is_imm;
 assign src2_is_imm   = inst_slli_w |
                        inst_srli_w |
@@ -187,7 +199,7 @@ wire        src_reg_is_rd;
 assign src_reg_is_rd = inst_beq | inst_bne | inst_st_w;
 
 wire       gr_we;
-assign gr_we         = ~inst_st_w & ~inst_beq & ~inst_bne & ~inst_b;
+assign gr_we         = (~inst_st_w & ~inst_beq & ~inst_bne & ~inst_b) && IF_ID_pc;
 
 wire        dst_is_r1;
 wire [4: 0] dest;
@@ -225,7 +237,7 @@ assign alu_op[ 8] = inst_slli_w;
 assign alu_op[ 9] = inst_srli_w;
 assign alu_op[10] = inst_srai_w;
 assign alu_op[11] = inst_lu12i_w;
-// 写内存信号
+// 写内存信�?
 wire        mem_we;
 assign mem_we        = inst_st_w;
 
@@ -234,27 +246,26 @@ wire [31:0] rj_value;
 wire [31:0] rkd_value;
 assign rj_value  = rf_rdata1;
 assign rkd_value = rf_rdata2;
-wire        br_taken;
-wire        rj_eq_rd;
-assign rj_eq_rd = (rj_value == rkd_value);
-assign br_taken = (   inst_beq  &&  rj_eq_rd
-                   || inst_bne  && !rj_eq_rd
-                   || inst_jirl
-                   || inst_bl
-                   || inst_b
-                  ) && valid;
+wire [4:0]  br_taken;
+// wire        rj_eq_rd;
+// assign rj_eq_rd = (rj_value == rkd_value);
+assign br_taken = {inst_beq, inst_bne, inst_jirl, inst_bl, inst_b};
 
 wire [31:0] br_offs;
+wire [31:0] br_target;
 wire [31:0] jirl_offs;
 assign jirl_offs = {{14{i16[15]}}, i16[15:0], 2'b0};
 assign br_offs = need_si26 ? {{ 4{i26[25]}}, i26[25:0], 2'b0} :
           {{14{i16[15]}}, i16[15:0], 2'b0} ;
-assign br_target = (inst_beq || inst_bne || inst_bl || inst_b) ? (pc + br_offs) :
+assign br_target = (inst_beq || inst_bne || inst_bl || inst_b) ? (IF_ID_pc + br_offs) :
           /*inst_jirl*/ (rj_value + jirl_offs);
 
 reg [31:0] ID_EX_pc;
-reg [31:0] ID_EX_br_offs;
+//reg [31:0] ID_EX_br_target;
 reg [ 4:0] ID_EX_rd;
+reg [ 4:0] ID_EX_r1;
+reg [ 4:0] ID_EX_r2;
+reg [ 4:0] ID_EX_br_taken;
 reg [31:0] ID_EX_imm;
 reg [31:0] ID_EX_rf_rdata1;
 reg [31:0] ID_EX_rf_rdata2;
@@ -267,19 +278,42 @@ reg        ID_EX_src1_is_pc;
 reg        ID_EX_res_from_mem;
 
 always @(posedge clk) begin
-    ID_EX_pc           <= IF_ID_pc;
-    ID_EX_rd           <= dest;
-    ID_EX_imm          <= imm;
-    ID_EX_rf_rdata1    <= rf_rdata1;
-    ID_EX_rf_rdata2    <= rf_rdata2;
-    ID_EX_alu_op       <= alu_op;
-    ID_EX_mem_we       <= mem_we;
-    // ID_EX_br_taken     <= br_taken;
-    ID_EX_gr_we        <= gr_we; 
-    ID_EX_src2_is_imm  <= src2_is_imm;
-    ID_EX_src1_is_pc   <= src1_is_pc;
-    ID_EX_res_from_mem <= res_from_mem;
-    ID_EX_br_offs      <= br_offs;
+    if(reset) begin
+        ID_EX_pc           <=  32'd0;
+        ID_EX_rd           <=  5'd0 ;
+        ID_EX_imm          <=  32'd0;
+        ID_EX_rf_rdata1    <=  32'd0;
+        ID_EX_rf_rdata2    <=  32'd0;
+        ID_EX_alu_op       <=  12'd0;
+        ID_EX_mem_we       <=  1'b0;
+        ID_EX_gr_we        <=  1'b0; 
+        ID_EX_src2_is_imm  <=  1'b0;
+        ID_EX_src1_is_pc   <=  1'b0;
+        ID_EX_res_from_mem <=  1'b0;
+        ID_EX_br_target    <=  1'b0;
+        ID_EX_br_taken     <=  5'd0;     
+        ID_EX_r1           <=  5'd0;  
+        ID_EX_r2           <=  5'd0;  
+    end
+    else begin
+        ID_EX_pc           <= (!br) ? IF_ID_pc        : 32'd0;
+        ID_EX_rd           <= (!br) ? dest            : 5'd0 ;
+        ID_EX_imm          <= (!br) ? imm             : 32'd0;
+        ID_EX_rf_rdata1    <= (!br) ? rf_rdata1       : 32'd0;
+        ID_EX_rf_rdata2    <= (!br) ? rf_rdata2       : 32'd0;
+        ID_EX_alu_op       <= (!br) ? alu_op          : 12'd0;
+        ID_EX_mem_we       <= (!br) ? mem_we          : 1'b0;
+        // ID_EX_br_taken     (!br) ? <= br_taken;
+        ID_EX_gr_we        <= (!br) ? gr_we           : 1'b0; 
+        ID_EX_src2_is_imm  <= (!br) ? src2_is_imm     : 1'b0;
+        ID_EX_src1_is_pc   <= (!br) ? src1_is_pc      : 1'b0;
+        ID_EX_res_from_mem <= (!br) ? res_from_mem    : 1'b0;
+        ID_EX_br_target    <= (!br) ? br_target       : 1'b0;
+        ID_EX_br_taken     <= (!br) ? br_taken        : 5'd0;
+        ID_EX_r1           <= (!br) ? rf_raddr1       : 5'd0;  
+        ID_EX_r2           <= (!br) ? rf_raddr2       : 5'd0;     
+    end
+
 end
 
 //////////////////////////////////////////////////////////////////
@@ -290,8 +324,8 @@ wire [31:0] alu_src1   ;
 wire [31:0] alu_src2   ;
 wire [31:0] alu_result ;
 
-assign alu_src1 = ID_EX_src1_is_pc  ? pc[31:0] :  ID_EX_rf_rdata1;
-assign alu_src2 = ID_EX_src2_is_imm ? ID_EX_imm : ID_EX_rf_rdata2;
+assign alu_src1 = ID_EX_src1_is_pc  ? ID_EX_pc[31:0] :  true_rf_data_1;
+assign alu_src2 = ID_EX_src2_is_imm ? ID_EX_imm : true_rf_data_2;
 alu u_alu(
     .alu_op     (ID_EX_alu_op),
     .alu_src1   (alu_src1  ),
@@ -299,30 +333,46 @@ alu u_alu(
     .alu_result (alu_result)
 );
 
-wire [31:0] pc_off ;
-assign pc_off = ID_EX_pc + ID_EX_br_offs;
+wire        rj_eq_rd;
+assign rj_eq_rd = (true_rf_data_1 == true_rf_data_2);
+//wire        br;
+assign      br = ((ID_EX_br_taken[4] && rj_eq_rd) || (ID_EX_br_taken[3] && !rj_eq_rd)
+                ||(ID_EX_br_taken[2]) || ID_EX_br_taken[1] || ID_EX_br_taken[0])?1'b1:1'b0;
+
 reg [31:0] EX_MEM_alu_result;
 reg [ 4:0] EX_MEM_rd;
-// reg [31:0] EX_MEM_pc;
+reg [31:0] EX_MEM_pc;
 reg [31:0] EX_MEM_rd_value;
 reg        EX_MEM_mem_we;
 reg        EX_MEM_gr_we;
 reg        EX_MEM_res_from_mem;
 
 always @(posedge clk) begin
-    EX_MEM_alu_result    <= alu_result        ;
-    EX_MEM_rd            <= ID_EX_rd          ;
-    // EX_MEM_pc            <= ID_EX_pc          ;
-    EX_MEM_rd_value      <= ID_EX_rf_rdata2   ;
-    EX_MEM_mem_we        <= ID_EX_mem_we      ;
-    EX_MEM_gr_we         <= ID_EX_gr_we       ;   
-    EX_MEM_res_from_mem  <= ID_EX_res_from_mem;   
+    if(reset) begin
+        EX_MEM_alu_result    <= 32'd0;
+        EX_MEM_rd            <= 5'd0;
+        EX_MEM_pc            <= 32'd0;
+        EX_MEM_rd_value      <= 32'd0;
+        EX_MEM_mem_we        <= 1'd0;
+        EX_MEM_gr_we         <= 1'd0;   
+        EX_MEM_res_from_mem  <= 1'd0;          
+    end
+    else begin
+            EX_MEM_alu_result    <= alu_result        ;
+            EX_MEM_rd            <= ID_EX_rd          ;
+            EX_MEM_pc            <= ID_EX_pc          ;
+            EX_MEM_rd_value      <= true_rf_data_2    ;
+            EX_MEM_mem_we        <= ID_EX_mem_we      ;
+            EX_MEM_gr_we         <= ID_EX_gr_we       ;   
+            EX_MEM_res_from_mem  <= ID_EX_res_from_mem;   
+    end
+
 end
 //////////////////////////////////////////////////////////////////
 //  MEMORY stage -> WRITE BACK                                 ///
 //////////////////////////////////////////////////////////////////
 
-assign data_sram_we    = mem_we && valid  ;
+assign data_sram_we    = EX_MEM_mem_we && valid  ;
 assign data_sram_addr  = EX_MEM_alu_result;
 assign data_sram_wdata = EX_MEM_rd_value  ;
 
@@ -330,17 +380,30 @@ wire [31:0] mem_result;
 assign mem_result   = data_sram_rdata;
 
 reg [31:0] MEM_WB_result;
+reg [31:0] MEM_WB_pc;
 reg [31:0] MEM_WB_alu_result;
 reg [ 4:0] MEM_WB_rd;
 reg        MEM_WB_gr_we;
 reg        MEM_WB_res_from_mem;
 
 always @(posedge clk) begin
-    MEM_WB_alu_result   <= EX_MEM_alu_result  ;
-    MEM_WB_result       <= mem_result         ;
-    MEM_WB_gr_we        <= EX_MEM_gr_we       ;
-    MEM_WB_rd           <= EX_MEM_rd          ;
-    MEM_WB_res_from_mem <= EX_MEM_res_from_mem;
+    if(reset) begin
+        MEM_WB_alu_result   <= 32'd0;
+        MEM_WB_result       <= 32'd0;
+        MEM_WB_gr_we        <= 1'd0;
+        MEM_WB_rd           <= 5'd0;
+        MEM_WB_res_from_mem <= 1'd0;
+        MEM_WB_pc           <= 32'd0;       
+    end
+    else begin
+        MEM_WB_alu_result   <= EX_MEM_alu_result  ;
+        MEM_WB_result       <= mem_result         ;
+        MEM_WB_gr_we        <= EX_MEM_gr_we       ;
+        MEM_WB_rd           <= EX_MEM_rd          ;
+        MEM_WB_res_from_mem <= EX_MEM_res_from_mem;
+        MEM_WB_pc           <= EX_MEM_pc          ;        
+    end
+
 end
 //////////////////////////////////////////////////////////////////
 //  WRITE BACK                                                 ///
@@ -349,5 +412,63 @@ wire [31:0] final_result;
 assign final_result = MEM_WB_res_from_mem ? MEM_WB_result : MEM_WB_alu_result;
 assign rf_we = MEM_WB_gr_we;
 assign rf_waddr = MEM_WB_rd;
-assign rf_wdata = final_result
+assign rf_wdata = final_result;
+reg [31:0] WB_rd;
+reg [31:0] result;
+reg  WB_rd_we;
+always @(posedge clk) begin
+    if(reset) begin
+        WB_rd <=0;        
+        WB_rd_we <=0;        
+        result <= 32'd0;
+    end
+    else begin
+        WB_rd <= MEM_WB_rd;        
+        WB_rd_we <= MEM_WB_gr_we;    
+        result <=final_result;    
+    end 
+
+end
+//////////////////////////////////////////////////////////////////
+//  相关                                                       ///
+//////////////////////////////////////////////////////////////////
+wire EX_MEM_forward_op_rj;
+wire EX_MEM_forward_op_rk;
+
+wire MEM_WB_forward_op_rj;
+wire MEM_WB_forward_op_rk;
+
+wire ID_EX_forward_op_rj;
+wire ID_EX_forward_op_rk;
+
+// wire ST_LD;
+
+assign ID_EX_forward_op_rj  = (WB_rd == ID_EX_r1)      ? 1'b1 : 1'b0;
+assign ID_EX_forward_op_rk  = (WB_rd == ID_EX_r2)      ? 1'b1 : 1'b0;
+assign EX_MEM_forward_op_rj = (ID_EX_r1 == EX_MEM_rd ) ? 1'b1 : 1'b0;      
+assign EX_MEM_forward_op_rk = (ID_EX_r2 == EX_MEM_rd ) ? 1'b1 : 1'b0;
+assign MEM_WB_forward_op_rj = (ID_EX_r1 == MEM_WB_rd)  ? 1'b1 : 1'b0;
+assign MEM_WB_forward_op_rk = (ID_EX_r2 == MEM_WB_rd)  ? 1'b1 : 1'b0;
+
+// wire [31:0] EX_MEM_alu_result_wire;
+// wire [31:0] ID_EX_rf_rdata1_wire;
+// wire [31:0] ID_EX_rf_rdata2_wire;
+
+
+assign true_rf_data_1 = (EX_MEM_gr_we && EX_MEM_forward_op_rj) ? EX_MEM_alu_result : 
+                        ((MEM_WB_gr_we && MEM_WB_forward_op_rj) ? final_result      :
+                        (WB_rd_we && ID_EX_forward_op_rj)      ? result             : ID_EX_rf_rdata1);
+assign true_rf_data_2 = (EX_MEM_gr_we && EX_MEM_forward_op_rk) ? EX_MEM_alu_result : 
+                        ((MEM_WB_gr_we && MEM_WB_forward_op_rk) ? final_result :
+                        (WB_rd_we && ID_EX_forward_op_rk)     ? result  : ID_EX_rf_rdata2);
+
+//////////////////////////////////////////////////////////////////
+//  Bubble                                                     ///
+//////////////////////////////////////////////////////////////////
+//wire bubble;
+assign bubble = (res_from_mem) ? 1'b1 :1'b0;
+assign debug_wb_pc       = MEM_WB_pc;
+assign debug_wb_rf_we   = {4{rf_we}};
+assign debug_wb_rf_wnum  = MEM_WB_rd;
+assign debug_wb_rf_wdata = final_result;
 endmodule

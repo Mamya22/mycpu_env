@@ -1,5 +1,5 @@
 
-./obj/main.elf:     file format elf32-loongarch
+./obj/main.elf：     文件格式 elf32-loongarch
 ./obj/main.elf
 
 

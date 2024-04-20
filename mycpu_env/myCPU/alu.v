@@ -1,5 +1,5 @@
 module alu(
-    input  wire [14:0] alu_op,
+    input  wire [11:0] alu_op,
     input  wire [31:0] alu_src1,
     input  wire [31:0] alu_src2,
     output wire [31:0] alu_result
@@ -36,9 +36,9 @@ module alu(
   assign op_sra  = alu_op[10];
   assign op_lui  = alu_op[11];
 
-  assign op_mul_w = alu_op[12];
-  assign op_mul_h = alu_op[13];
-  assign op_mul_wu = alu_op[14];
+//   assign op_mul_w = alu_op[12];
+//   assign op_mul_h = alu_op[13];
+//   assign op_mul_wu = alu_op[14];
 
   wire [31:0] add_sub_result;
   wire [31:0] slt_result;
@@ -60,31 +60,31 @@ module alu(
   wire [31:0] adder_result;
   wire        adder_cout;
 
-  wire [31:0] mul_a ;
-  wire [31:0] mul_b ;
-  wire [63:0] out ;
+//   wire [31:0] mul_a ;
+//   wire [31:0] mul_b ;
+//   wire [63:0] out ;
 
-  assign mul_a = op_mul_wu ? {1'b0, alu_src1[30:0]} : 
-                alu_src1[31]  ?(~alu_src1+1):alu_src1;
-  assign mul_b = op_mul_wu ? {1'b0, alu_src2[30:0]} :
-               alu_src2[31]?(~alu_src2 + 1): alu_src2;
+//   assign mul_a = op_mul_wu ? {1'b0, alu_src1[30:0]} : 
+//                 alu_src1[31]  ?(~alu_src1+1):alu_src1;
+//   assign mul_b = op_mul_wu ? {1'b0, alu_src2[30:0]} :
+//                alu_src2[31]?(~alu_src2 + 1): alu_src2;
 
-  wire [63: 0] mul_u_1;
-  wire [63: 0] mul_u_2;
-  wire [63: 0] mul_u_3;
+//   wire [63: 0] mul_u_1;
+//   wire [63: 0] mul_u_2;
+//   wire [63: 0] mul_u_3;
 
-  assign mul_u_1 = alu_src2[31] ? (mul_a << 31) : 32'd0;
-  assign mul_u_2 = alu_src1[31] ? (mul_b << 31) : 32'd0;
-  assign mul_u_3 = (alu_src1[31] && alu_src2[31]) ? 64'h4000000000000000 : 64'd0;
+//   assign mul_u_1 = alu_src2[31] ? (mul_a << 31) : 32'd0;
+//   assign mul_u_2 = alu_src1[31] ? (mul_b << 31) : 32'd0;
+//   assign mul_u_3 = (alu_src1[31] && alu_src2[31]) ? 64'h4000000000000000 : 64'd0;
 
-  Multi_impro multi(
-     .x(mul_a),
-     .y0(mul_b),
-     .out(out)
-  );
-  wire [63:0] multi_result;
-  assign multi_result = op_mul_wu ? (mul_u_1 + mul_u_2 + mul_u_3 + out) : 
-                     (alu_src1[31] ^ alu_src2[31]) ? ~out+1: out;
+//   Multi_impro multi(
+//      .x(mul_a),
+//      .y0(mul_b),
+//      .out(out)
+//   );
+//   wire [63:0] multi_result;
+//   assign multi_result = op_mul_wu ? (mul_u_1 + mul_u_2 + mul_u_3 + out) : 
+//                      (alu_src1[31] ^ alu_src2[31]) ? ~out+1: out;
 
 
   assign adder_a   = alu_src1;
@@ -129,8 +129,8 @@ module alu(
          | ({32{op_xor       }} & xor_result)
          | ({32{op_lui       }} & lui_result)
          | ({32{op_sll       }} & sll_result)
-         | ({32{op_srl|op_sra}} & sr_result)
-         | ({32{op_mul_w     }} & multi_result[31:0])
-         | ({32{op_mul_h | op_mul_wu}} & multi_result[63:32]);
+         | ({32{op_srl|op_sra}} & sr_result);
+       //   | ({32{op_mul_w     }} & multi_result[31:0])
+       //   | ({32{op_mul_h | op_mul_wu}} & multi_result[63:32]);
 
 endmodule

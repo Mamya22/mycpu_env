@@ -1,0 +1,27 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Thu Apr 18 20:38:50 2024
+# Process ID: 9896
+# Current directory: C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1
+# Command line: vivado.exe -log dist_mem_gen_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source dist_mem_gen_0.tcl
+# Log file: C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1/dist_mem_gen_0.vds
+# Journal file: C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.runs/dist_mem_gen_0_synth_1\vivado.jou
+# Running On: lenovo, OS: Windows, CPU Frequency: 2688 MHz, CPU Physical cores: 14, Host memory: 34071 MB
+#-----------------------------------------------------------
+source dist_mem_gen_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 432.277 ; gain = 164.109
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: dist_mem_gen_0
+Command: synth_design -top dist_mem_gen_0 -part xc7a100ticsg324-1L -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100ti'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100ti'
+INFO: [Device 21-403] Loading part xc7a100ticsg324-1L
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 12212
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1274.945 ; gain = 409.941
+---------------------------------------------------------------------------------
