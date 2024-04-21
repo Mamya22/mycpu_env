@@ -15,6 +15,7 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Lenovo1/Desktop/mycpu_env/
 INFO: [VRFC 10-311] analyzing module confreg
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/myCPU/mycpu_pipeline.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module mycpu_pipeline
+WARNING: [VRFC 10-3380] identifier 'MEM_WB_data' is used before its declaration [C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/myCPU/mycpu_pipeline.v:471]
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/myCPU/regfile.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module regfile
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/soc_lite_top.v" into library xil_defaultlib

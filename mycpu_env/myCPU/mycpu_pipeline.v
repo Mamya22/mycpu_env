@@ -170,10 +170,10 @@ assign i26  = {IF_ID_inst[ 9: 0], IF_ID_inst[25:10]};
 // 得到立即�?
 wire [31:0] imm;
 assign imm = src2_is_4 ? 32'h4                      :
-            need_si20 ? {i20[19:0], 12'b0}         :
+             need_si20 ? {i20[19:0], 12'b0}         :
             // need_ui12 ? {20'd0, i12[11:0]}         :
-            need_ui5  ? {27'd0, rk}                :
-           {{20{i12[11]}}, i12[11:0]} ;
+             need_ui5  ? {27'd0, rk}                :
+            {{20{i12[11]}}, i12[11:0]} ;
 wire   src2_is_imm;
 assign src2_is_imm   = inst_slli_w |
                        inst_srli_w |
@@ -258,7 +258,7 @@ assign jirl_offs = {{14{i16[15]}}, i16[15:0], 2'b0};
 assign br_offs = need_si26 ? {{ 4{i26[25]}}, i26[25:0], 2'b0} :
           {{14{i16[15]}}, i16[15:0], 2'b0} ;
 assign br_target = (inst_beq || inst_bne || inst_bl || inst_b) ? (IF_ID_pc + br_offs) :
-          /*inst_jirl*/ (rj_value + jirl_offs);
+                                                   /*inst_jirl*/ (rj_value + jirl_offs);
 
 reg [31:0] ID_EX_pc;
 //reg [31:0] ID_EX_br_target;
@@ -355,7 +355,7 @@ always @(posedge clk) begin
         EX_MEM_rd_value      <= 32'd0;
         EX_MEM_mem_we        <= 1'd0;
         EX_MEM_gr_we         <= 1'd0;   
-        EX_MEM_res_from_mem  <= 1'd0;          
+        EX_MEM_res_from_mem  <= 1'd0;      
     end
     else begin
             EX_MEM_alu_result    <= alu_result        ;
@@ -364,7 +364,7 @@ always @(posedge clk) begin
             EX_MEM_rd_value      <= true_rf_data_2    ;
             EX_MEM_mem_we        <= ID_EX_mem_we      ;
             EX_MEM_gr_we         <= ID_EX_gr_we       ;   
-            EX_MEM_res_from_mem  <= ID_EX_res_from_mem;   
+            EX_MEM_res_from_mem  <= ID_EX_res_from_mem;
     end
 
 end
