@@ -70,9 +70,6 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param checkpoint.writeSynthRtdsInDcp 1
-set_param synth.incrementalSynthesisCache C:/Users/Lenovo1/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-1828-lenovo/incrSyn
-set_msg_config -id {Common 17-41} -limit 10000000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100ticsg324-1L
 
@@ -92,25 +89,20 @@ add_files C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/func/obj/inst_ram.coe
 add_files C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/func/obj/myinst_ram_.coe
 add_files e:/exp6-10/mycpu_env/func/obj/inst_ram.coe
 read_mem C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/xilinx_ip/inst_ram/inst_ram.mif
-read_verilog -library xil_defaultlib -sv {
-  E:/VIVADO/LAB_2/LAB_2.srcs/sources_1/new/Booth.sv
-  E:/VIVADO/LAB_2/LAB_2.srcs/sources_1/new/Multi_impro.sv
-  E:/VIVADO/LAB_2/LAB_2.srcs/sources_1/new/wallace.sv
-}
 read_verilog -library xil_defaultlib {
   C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/myCPU/alu.v
   C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/BRIDGE/bridge_1x2.v
   C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/CONFREG/confreg.v
-  C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/myCPU/mycpu_top.v
+  C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/myCPU/my_cpu_pipeline39.v
   C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/myCPU/regfile.v
   C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/myCPU/tools.v
   C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/soc_lite_top.v
 }
-read_ip -quiet C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.srcs/sources_1/ip/data_ram/data_ram.xci
-set_property used_in_implementation false [get_files -all c:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.gen/sources_1/ip/data_ram/data_ram_ooc.xdc]
-
 read_ip -quiet C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.srcs/sources_1/ip/dist_mem_gen_0/dist_mem_gen_0.xci
 set_property used_in_implementation false [get_files -all c:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.gen/sources_1/ip/dist_mem_gen_0/dist_mem_gen_0_ooc.xdc]
+
+read_ip -quiet C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.srcs/sources_1/ip/data_ram/data_ram.xci
+set_property used_in_implementation false [get_files -all c:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.gen/sources_1/ip/data_ram/data_ram_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -124,8 +116,6 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc D:/QQ/soc_lite_top_on_Nexys4.xdc
 set_property used_in_implementation false [get_files D:/QQ/soc_lite_top_on_Nexys4.xdc]
 
-read_xdc dont_touch.xdc
-set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
 read_checkpoint -auto_incremental -incremental C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/run_vivado/project/loongson.srcs/utils_1/imports/synth_1/soc_lite_top.dcp

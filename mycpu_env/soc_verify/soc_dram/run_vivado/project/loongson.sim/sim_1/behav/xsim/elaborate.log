@@ -5,27 +5,8 @@ Running: E:/VIVADO/Vivado/2023.1/bin/unwrapped/win64.o/xelab.exe --incr --debug 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 10 for port 'a' [C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/soc_lite_top.v:213]
+WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 10 for port 'a' [C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/soc_lite_top.v:173]
+WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 5 for port 'a' [C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/soc_lite_top.v:213]
 WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'conf_we' [C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/rtl/soc_lite_top.v:226]
 Completed static elaboration
-Starting simulation data flow analysis
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.decoder_6_64
-Compiling module xil_defaultlib.decoder_4_16
-Compiling module xil_defaultlib.decoder_2_4
-Compiling module xil_defaultlib.decoder_5_32
-Compiling module xil_defaultlib.regfile
-Compiling module xil_defaultlib.alu
-Compiling module xil_defaultlib.mycpu_pipeline
-Compiling module xil_defaultlib.dist_mem_gen_v8_0_13(C_FAMILY="a...
-Compiling module xil_defaultlib.dist_mem_gen_0
-Compiling module xil_defaultlib.bridge_1x2
-Compiling module xil_defaultlib.async_ram(ADDR_WIDTH=10,DEPTH=10...
-Compiling module xil_defaultlib.data_ram_default
-Compiling module xil_defaultlib.confreg(SIMULATION=1'b1)
-Compiling module xil_defaultlib.soc_lite_top(SIMULATION=1'b1)
-Compiling module xil_defaultlib.tb_top
-WARNING: [XSIM 43-3373] "C:/Users/Lenovo1/Desktop/mycpu_env/mycpu_env/soc_verify/soc_dram/testbench/mycpu_tb.v" Line 131. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot tb_top_behav
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel

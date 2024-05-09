@@ -61,7 +61,7 @@ module data_ram (
   spo
 );
 
-input wire [9 : 0] a;
+input wire [4 : 0] a;
 input wire [31 : 0] d;
 input wire clk;
 input wire we;
@@ -69,9 +69,9 @@ output wire [31 : 0] spo;
 
   dist_mem_gen_v8_0_13 #(
     .C_FAMILY("artix7"),
-    .C_ADDR_WIDTH(10),
+    .C_ADDR_WIDTH(5),
     .C_DEFAULT_DATA("0"),
-    .C_DEPTH(1024),
+    .C_DEPTH(32),
     .C_HAS_CLK(1),
     .C_HAS_D(1),
     .C_HAS_DPO(0),
@@ -103,7 +103,7 @@ output wire [31 : 0] spo;
   ) inst (
     .a(a),
     .d(d),
-    .dpra(10'B0),
+    .dpra(5'B0),
     .clk(clk),
     .we(we),
     .i_ce(1'D1),

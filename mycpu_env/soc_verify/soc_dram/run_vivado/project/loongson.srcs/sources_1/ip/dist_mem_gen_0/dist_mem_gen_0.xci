@@ -7,7 +7,7 @@
     "gen_directory": "../../../../loongson.gen/sources_1/ip/dist_mem_gen_0",
     "parameters": {
       "component_parameters": {
-        "depth": [ { "value": "65536", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "depth": [ { "value": "1024", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "data_width": [ { "value": "32", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "Component_Name": [ { "value": "dist_mem_gen_0", "resolve_type": "user", "usage": "all" } ],
         "memory_type": [ { "value": "single_port_ram", "resolve_type": "user", "usage": "all" } ],
@@ -23,7 +23,7 @@
         "common_output_ce": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "dual_port_output_clock_enable": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "simple_dual_port_output_clock_enable": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
-        "coefficient_file": [ { "value": "../../../../../../../../func/obj/inst_ram.coe", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
+        "coefficient_file": [ { "value": "../../../../../../../../func/obj/myinst_ram_.coe", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "default_data_radix": [ { "value": "16", "resolve_type": "user", "usage": "all" } ],
         "default_data": [ { "value": "0", "resolve_type": "user", "usage": "all" } ],
         "reset_qspo": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
@@ -36,9 +36,9 @@
       },
       "model_parameters": {
         "C_FAMILY": [ { "value": "artix7", "resolve_type": "generated", "usage": "all" } ],
-        "C_ADDR_WIDTH": [ { "value": "16", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_ADDR_WIDTH": [ { "value": "10", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_DEFAULT_DATA": [ { "value": "0", "resolve_type": "generated", "usage": "all" } ],
-        "C_DEPTH": [ { "value": "65536", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_DEPTH": [ { "value": "1024", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_HAS_CLK": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_HAS_D": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_HAS_DPO": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
@@ -94,7 +94,7 @@
     },
     "boundary": {
       "ports": {
-        "a": [ { "direction": "in", "size_left": "15", "size_right": "0", "driver_value": "0" } ],
+        "a": [ { "direction": "in", "size_left": "9", "size_right": "0", "driver_value": "0" } ],
         "d": [ { "direction": "in", "size_left": "31", "size_right": "0", "driver_value": "0" } ],
         "clk": [ { "direction": "in", "driver_value": "0" } ],
         "we": [ { "direction": "in", "driver_value": "0" } ],

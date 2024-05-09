@@ -141,7 +141,7 @@ wire [31:0] conf_wdata;
 wire [31:0] conf_rdata;
 
 //cpu
-mycpu_pipeline cpu(
+mycpu_pipeline39 cpu(
     .clk              (cpu_clk       ),
     .resetn           (cpu_resetn    ),  //low active
 

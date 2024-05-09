@@ -53,7 +53,7 @@
 ------------- Begin Cut here for COMPONENT Declaration ------ COMP_TAG
 COMPONENT dist_mem_gen_0
   PORT (
-    a : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    a : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
     d : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     clk : IN STD_LOGIC;
     we : IN STD_LOGIC;

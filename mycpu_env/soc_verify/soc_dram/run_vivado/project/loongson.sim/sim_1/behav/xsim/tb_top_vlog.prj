@@ -3,10 +3,9 @@ verilog xil_defaultlib  --include "../../../../../../rtl/xilinx_ip/clk_pll" \
 "../../../../loongson.gen/sources_1/ip/data_ram/sim/data_ram.v" \
 "../../../../loongson.gen/sources_1/ip/dist_mem_gen_0/sim/dist_mem_gen_0.v" \
 "../../../../../../../../myCPU/alu.v" \
-"../../../../../../testbench/async_ram.v" \
 "../../../../../../rtl/BRIDGE/bridge_1x2.v" \
 "../../../../../../rtl/CONFREG/confreg.v" \
-"../../../../../../../../myCPU/mycpu_pipeline.v" \
+"../../../../../../../../myCPU/my_cpu_pipeline39.v" \
 "../../../../../../../../myCPU/regfile.v" \
 "../../../../../../rtl/soc_lite_top.v" \
 "../../../../../../../../myCPU/tools.v" \

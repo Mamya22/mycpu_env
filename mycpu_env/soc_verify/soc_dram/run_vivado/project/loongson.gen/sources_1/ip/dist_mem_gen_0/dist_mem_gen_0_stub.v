@@ -2,11 +2,11 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
-// Date        : Sat Apr 13 08:46:51 2024
+// Date        : Thu May  2 09:39:07 2024
 // Host        : lenovo running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub -rename_top dist_mem_gen_0 -prefix
-//               dist_mem_gen_0_ inst_ram_stub.v
-// Design      : inst_ram
+//               dist_mem_gen_0_ dist_mem_gen_0_stub.v
+// Design      : dist_mem_gen_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100ticsg324-1L
 // --------------------------------------------------------------------------------
@@ -16,9 +16,9 @@
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
 (* x_core_info = "dist_mem_gen_v8_0_13,Vivado 2023.1" *)
 module dist_mem_gen_0(a, d, clk, we, spo)
-/* synthesis syn_black_box black_box_pad_pin="a[15:0],d[31:0],we,spo[31:0]" */
+/* synthesis syn_black_box black_box_pad_pin="a[9:0],d[31:0],we,spo[31:0]" */
 /* synthesis syn_force_seq_prim="clk" */;
-  input [15:0]a;
+  input [9:0]a;
   input [31:0]d;
   input clk /* synthesis syn_isclock = 1 */;
   input we;

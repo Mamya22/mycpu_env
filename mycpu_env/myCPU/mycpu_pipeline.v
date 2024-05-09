@@ -167,7 +167,7 @@ assign i12  = IF_ID_inst[21:10];
 assign i20  = IF_ID_inst[24: 5];
 assign i16  = IF_ID_inst[25:10];
 assign i26  = {IF_ID_inst[ 9: 0], IF_ID_inst[25:10]};
-// 得到立即�?
+// 得到立即�??
 wire [31:0] imm;
 assign imm = src2_is_4 ? 32'h4                      :
              need_si20 ? {i20[19:0], 12'b0}         :
@@ -237,7 +237,7 @@ assign alu_op[ 8] = inst_slli_w;
 assign alu_op[ 9] = inst_srli_w;
 assign alu_op[10] = inst_srai_w;
 assign alu_op[11] = inst_lu12i_w;
-// 写内存信�?
+// 写内存信�??
 wire        mem_we;
 assign mem_we        = inst_st_w;
 
